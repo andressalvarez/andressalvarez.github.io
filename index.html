@@ -3,300 +3,707 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Andrés Álvarez — Desarrollador de Software & Ciberseguridad">
-  <title>Andrés Álvarez</title>
+  <meta name="description" content="Andrés Álvarez — Full Stack Developer Semi-Senior · Django · Laravel · IA · Colombia">
+  <title>Andrés Álvarez — Full Stack Developer</title>
   <link rel="shortcut icon" href="icon/finnTransparente.png" type="image/x-icon">
 
-  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            dark: '#050509',
-            dalt: '#08080e',
-            dcard: '#0c0c16',
-            dborder: '#161626',
-            dborder2: '#1f1f34',
-            accent: '#00e87d',
-            muted: '#525a72',
-            soft: '#8892a4',
+            dark: '#07070d', dalt: '#0b0b13', dcard: '#0f0f18',
+            dborder: '#181828', dborder2: '#232338',
+            accent: '#e8a030', muted: '#5a5a78', soft: '#8892a4',
           },
           fontFamily: {
-            display: ['"Bricolage Grotesque"','sans-serif'],
-            body:    ['"DM Sans"','sans-serif'],
+            display: ['"Barlow Condensed"','"Bricolage Grotesque"','sans-serif'],
+            body:    ['"Karla"','"DM Sans"','sans-serif'],
             mono:    ['"JetBrains Mono"','monospace'],
           },
+          animation: { ticker: 'ticker 40s linear infinite' },
+          keyframes: {
+            ticker: { '0%': {transform:'translateX(0)'}, '100%': {transform:'translateX(-50%)'} }
+          }
         }
       }
     }
   </script>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&family=Karla:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
-  <!-- Three.js + GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="bg-dark text-soft font-body overflow-x-hidden">
-
-  <!-- Grain overlay -->
   <div class="grain" aria-hidden="true"></div>
-
-  <!-- Custom cursor -->
-  <div id="cdot" aria-hidden="true"></div>
+  <div id="cdot"  aria-hidden="true"></div>
   <div id="cring" aria-hidden="true"></div>
 
-  <!-- ══ NAV ══════════════════════════════════════ -->
+  <!-- ══ NAV ══ -->
   <nav id="nav" class="fixed inset-x-0 top-0 z-50 transition-all duration-300">
     <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-      <a href="#hero" class="font-mono text-sm font-medium text-white tracking-wide">
+      <a href="#hero" class="font-mono text-sm font-medium text-white tracking-wide focus-ring rounded">
         <span class="text-accent">[</span>AA<span class="text-accent">]</span>
       </a>
-
-      <button id="nav-toggle" class="md:hidden flex flex-col gap-[5px] p-1" aria-label="Menú">
-        <span class="navbar block w-5 h-[2px] bg-soft rounded transition-all duration-300"></span>
-        <span class="navbar block w-5 h-[2px] bg-soft rounded transition-all duration-300"></span>
-        <span class="navbar block w-5 h-[2px] bg-soft rounded transition-all duration-300"></span>
+      <button id="nav-toggle" class="md:hidden flex flex-col gap-[5px] p-2 cursor-pointer focus-ring rounded" aria-label="Abrir menú" aria-expanded="false">
+        <span class="nav-bar"></span><span class="nav-bar"></span><span class="nav-bar"></span>
       </button>
-
       <ul class="hidden md:flex items-center gap-1">
-        <li><a href="#sobre-mi"  class="navlink px-3 py-2 rounded-lg text-sm">Sobre mí</a></li>
-        <li><a href="#stack"     class="navlink px-3 py-2 rounded-lg text-sm">Stack</a></li>
-        <li><a href="#proyectos" class="navlink px-3 py-2 rounded-lg text-sm">Proyectos</a></li>
+        <li><a href="#proyectos"   class="navlink px-3 py-2 rounded-lg text-sm focus-ring">Proyectos</a></li>
+        <li><a href="#experiencia" class="navlink px-3 py-2 rounded-lg text-sm focus-ring">Experiencia</a></li>
+        <li><a href="#stack"       class="navlink px-3 py-2 rounded-lg text-sm focus-ring">Stack</a></li>
+        <li><a href="#sobre-mi"    class="navlink px-3 py-2 rounded-lg text-sm focus-ring">Sobre mí</a></li>
         <li>
-          <a href="#contacto" class="ml-2 magnetic inline-flex items-center gap-1.5 px-4 py-2 border border-dborder2 rounded-lg text-sm text-accent font-medium hover:bg-accent hover:text-dark hover:border-accent transition-all duration-200">
-            Contacto <i class="bi bi-arrow-up-right text-xs"></i>
+          <a href="#contacto" class="ml-2 magnetic inline-flex items-center gap-1.5 px-4 py-2 border border-dborder2 rounded-lg text-sm text-accent font-medium hover:bg-accent hover:text-dark hover:border-accent transition-all duration-200 cursor-pointer focus-ring">
+            Contacto <i class="bi bi-arrow-up-right text-xs" aria-hidden="true"></i>
           </a>
         </li>
       </ul>
     </div>
-
-    <!-- Mobile menu -->
-    <div id="mobile-menu" class="hidden md:hidden border-b border-dborder bg-dark/95 backdrop-blur-2xl px-6 pb-4">
+    <div id="mobile-menu" class="hidden md:hidden border-b border-dborder bg-dark/97 backdrop-blur-2xl px-6 pb-4">
       <ul class="flex flex-col gap-1 pt-2">
-        <li><a href="#sobre-mi"  class="navlink block py-3 text-base">Sobre mí</a></li>
-        <li><a href="#stack"     class="navlink block py-3 text-base">Stack</a></li>
-        <li><a href="#proyectos" class="navlink block py-3 text-base">Proyectos</a></li>
-        <li><a href="#contacto"  class="navlink block py-3 text-base text-accent">Contacto →</a></li>
+        <li><a href="#proyectos"   class="navlink block py-3 text-base focus-ring">Proyectos</a></li>
+        <li><a href="#experiencia" class="navlink block py-3 text-base focus-ring">Experiencia</a></li>
+        <li><a href="#stack"       class="navlink block py-3 text-base focus-ring">Stack</a></li>
+        <li><a href="#sobre-mi"    class="navlink block py-3 text-base focus-ring">Sobre mí</a></li>
+        <li><a href="#contacto"    class="navlink block py-3 text-base text-accent focus-ring">Contacto →</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- ══ HERO ═════════════════════════════════════ -->
-  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
-    <canvas id="bg-canvas" class="absolute inset-0 w-full h-full z-0 opacity-80"></canvas>
+  <!-- ══ HERO ══ -->
+  <section id="hero" class="relative min-h-screen flex items-center overflow-hidden">
+    <canvas id="bg-canvas" class="absolute inset-0 w-full h-full z-0 opacity-80" aria-hidden="true"></canvas>
+    <div class="relative z-10 w-full max-w-6xl mx-auto px-6 pt-20 pb-10">
 
-    <div class="relative z-10 text-center px-6 max-w-5xl mx-auto pt-16">
-
-      <!-- Prompt badge -->
-      <div class="reveal-item inline-flex items-center gap-2 font-mono text-xs text-muted px-4 py-2 rounded-md border border-dborder bg-dcard/80 backdrop-blur-sm mb-8">
-        <span class="text-accent">$</span> whoami
-        <span class="w-1.5 h-3.5 bg-accent rounded-sm animate-pulse ml-0.5"></span>
-      </div>
-
-      <!-- NAME — split into words for GSAP -->
-      <h1 class="font-display font-extrabold leading-[0.9] tracking-[-0.04em] mb-6 select-none">
+      <h1 class="font-display font-black leading-[0.85] tracking-[-0.02em] mb-8 select-none uppercase">
         <div class="overflow-hidden pb-2">
-          <span id="word-andres" class="block text-white" style="font-size:clamp(64px,12vw,140px)">Andrés</span>
+          <span id="word-andres" class="block text-white" style="font-size:clamp(72px,14vw,160px)">Andrés</span>
         </div>
         <div class="overflow-hidden pb-2">
-          <span id="word-alvarez" class="block hero-outline" style="font-size:clamp(64px,12vw,140px)">Álvarez</span>
+          <span id="word-alvarez" class="block hero-outline" style="font-size:clamp(72px,14vw,160px)">Álvarez</span>
         </div>
       </h1>
 
-      <!-- Role -->
-      <p class="font-mono text-accent flex items-center justify-center gap-2 mb-6 min-h-[28px]" style="font-size:clamp(13px,2vw,18px)">
-        <span class="opacity-40">→</span>
-        <span id="typed-role"></span><span class="typed-cursor">▊</span>
+      <p class="flex items-center gap-3 mb-6 min-h-[28px]" style="font-size:18px" aria-live="polite">
+        <span class="inline-block w-8 h-px bg-accent flex-shrink-0" aria-hidden="true"></span>
+        <span id="typed-role" class="font-mono text-accent font-medium tracking-wide"></span><span class="typed-cursor" aria-hidden="true">▊</span>
       </p>
 
-      <!-- Description -->
-      <p class="reveal-item text-soft/60 max-w-md mx-auto leading-relaxed mb-10" style="font-size:clamp(14px,1.6vw,16px)">
-        Construyo productos web robustos y tengo curiosidad profunda por la ciberseguridad.<br>
-        Estudiante de Ingeniería de Software · Colombia.
+      <p class="reveal-item font-mono text-xs text-muted/60 tracking-widest uppercase mb-10 flex flex-wrap items-center gap-x-3 gap-y-1">
+        <span>Django</span><span class="text-accent/25" aria-hidden="true">/</span>
+        <span>Laravel</span><span class="text-accent/25" aria-hidden="true">/</span>
+        <span>PrestaShop</span><span class="text-accent/25" aria-hidden="true">/</span>
+        <span>LangChain</span><span class="text-accent/25" aria-hidden="true">/</span>
+        <span>Docker</span>
       </p>
 
-      <!-- CTAs -->
-      <div class="reveal-item flex items-center justify-center gap-4 flex-wrap mb-10">
-        <a href="#proyectos" class="magnetic btn-primary group">
-          Ver proyectos <i class="bi bi-arrow-down-short text-xl"></i>
+      <div class="reveal-item flex items-center gap-4 flex-wrap mb-10">
+        <a href="#proyectos" class="magnetic btn-primary cursor-pointer focus-ring rounded-xl" style="width:auto">
+          Ver proyectos <i class="bi bi-arrow-down-short text-xl" aria-hidden="true"></i>
         </a>
-        <a href="https://github.com/andressalvarez" target="_blank" rel="noopener" class="magnetic btn-ghost">
-          <i class="bi bi-github"></i> GitHub
+        <a href="#experiencia" class="magnetic btn-ghost cursor-pointer focus-ring rounded-xl" style="width:auto">
+          Mi experiencia <i class="bi bi-briefcase" aria-hidden="true"></i>
         </a>
       </div>
 
-      <!-- Status pills -->
-      <div class="reveal-item flex items-center justify-center gap-3 flex-wrap">
+      <div class="reveal-item flex items-center gap-3 flex-wrap">
         <span class="font-mono text-xs text-muted px-3 py-1.5 rounded-full border border-dborder bg-dcard flex items-center gap-2">
-          <span class="avail-dot"></span> Disponible para proyectos
+          <span class="avail-dot" aria-hidden="true"></span> Disponible para proyectos
         </span>
         <span class="font-mono text-xs text-muted px-3 py-1.5 rounded-full border border-dborder bg-dcard flex items-center gap-1.5">
-          <i class="bi bi-geo-alt text-xs"></i> Colombia
+          <i class="bi bi-geo-alt text-xs" aria-hidden="true"></i> Ibagué, Colombia
+        </span>
+        <span class="font-mono text-xs text-muted px-3 py-1.5 rounded-full border border-dborder bg-dcard flex items-center gap-1.5">
+          <i class="bi bi-telephone text-xs" aria-hidden="true"></i> 320 233 5805
         </span>
       </div>
     </div>
 
-    <!-- Scroll indicator -->
-    <a href="#sobre-mi" class="scroll-hint absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 font-mono text-[10px] tracking-widest text-muted/40 hover:text-accent transition-colors">
+    <a href="#proyectos" class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 font-mono text-[10px] tracking-widest text-muted/40 hover:text-accent transition-colors scroll-hint focus-ring" aria-label="Ir a proyectos">
       <span>scroll</span>
-      <div class="w-px h-10 bg-gradient-to-b from-accent/60 to-transparent"></div>
+      <div class="w-px h-10 bg-gradient-to-b from-accent/60 to-transparent" aria-hidden="true"></div>
     </a>
   </section>
 
-  <!-- ══ ABOUT ══════════════════════════════════════ -->
-  <section id="sobre-mi" class="py-24 bg-dalt">
-    <div class="max-w-6xl mx-auto px-6">
+  <!-- ══ TICKER ══ -->
+  <div class="overflow-hidden border-y border-dborder bg-dalt py-4" aria-label="Tecnologías" role="marquee">
+    <div class="animate-ticker flex gap-0" style="width:max-content">
+      <div class="flex items-center gap-7 px-7">
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">Python</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">Django</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">PHP 8.x</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">Laravel</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">React</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">Next.js</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">TypeScript</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">Docker</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">PostgreSQL</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">Redis</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">LangChain</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">OpenAI API</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">AWS</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">n8n</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">PrestaShop</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">Flutter</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">NestJS</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">CI/CD</span><span class="text-accent/20" aria-hidden="true">✦</span>
+      </div>
+      <div class="flex items-center gap-7 px-7">
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">Python</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">Django</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">PHP 8.x</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">Laravel</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">React</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">Next.js</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">TypeScript</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">Docker</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">PostgreSQL</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">Redis</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">LangChain</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">OpenAI API</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">AWS</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">n8n</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">PrestaShop</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">Flutter</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">NestJS</span><span class="text-accent/20" aria-hidden="true">✦</span>
+        <span class="font-mono text-[11px] text-muted uppercase tracking-[0.14em]">CI/CD</span><span class="text-accent/20" aria-hidden="true">✦</span>
+      </div>
+    </div>
+  </div>
 
+  <!-- ══ PROJECTS ══ -->
+  <section id="proyectos" class="py-28 bg-dark">
+    <div class="max-w-6xl mx-auto px-6">
       <div class="gsap-reveal mb-16">
-        <span class="sec-label">01 — SOBRE MÍ</span>
-        <h2 class="sec-title">Código, seguridad<br>y creatividad.</h2>
+        <span class="sec-label">01 — PROYECTOS</span>
+        <h2 class="sec-title">Lo que he<br>construido.</h2>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-16 items-start">
+      <!-- ── HERO PROJECT — SIAVIP (el más complejo, va primero) ── -->
+      <article class="proj-from-top proj-card proj-featured proj-hero mb-5">
+        <div class="proj-hero-inner">
+          <div class="proj-hero-img">
+            <img src="Imagenes/proyectos/SIAVIP.jpg" alt="Plataforma SIAVIP de e-commerce con membresías en Laravel" loading="lazy">
+            <div class="proj-img-glow"></div>
+            <span class="proj-badge">En producción ↗</span>
+          </div>
+          <div class="proj-hero-body">
+            <div class="flex flex-wrap gap-1.5 mb-4">
+              <span class="ptag ptag-amber">Laravel</span><span class="ptag ptag-amber">PHP</span>
+              <span class="ptag">E-commerce</span><span class="ptag">Membresías</span><span class="ptag">Brevo</span><span class="ptag">IA</span>
+            </div>
+            <h3 class="font-display font-bold text-white tracking-tight proj-hero-title">SIAVIP<br><span class="proj-hero-sub">Plataforma de Membresías</span></h3>
+            <p class="text-soft/65 text-sm leading-relaxed mb-6 max-w-md">
+              Plataforma Laravel de e-commerce para venta de membresías. Mantenimiento y nuevas features, endpoints para apps móviles, automatización de correos transaccionales con Brevo e implementación de IA en el flujo de negocio.
+            </p>
+            <div class="flex gap-4 flex-wrap">
+              <span class="proj-stat"><span class="proj-stat-n">3</span> años activo</span>
+              <span class="proj-stat"><span class="proj-stat-n">Laravel</span> + Brevo</span>
+              <span class="proj-stat"><span class="proj-stat-n">IA</span> integrada</span>
+            </div>
+          </div>
+        </div>
+      </article>
 
-        <!-- Photo with 3D tilt -->
-        <div class="gsap-reveal tilt-wrap relative rounded-2xl overflow-hidden border border-dborder2 bg-dcard">
-          <img src="Imagenes/Perfil.png" alt="Andrés Álvarez"
-               class="w-full object-cover object-top transition-transform duration-500"
-               style="aspect-ratio:4/5" loading="lazy">
-          <div class="absolute inset-0 bg-gradient-to-t from-dark/60 to-transparent pointer-events-none"></div>
-          <span class="absolute top-3 right-3 w-2 h-2 rounded-full bg-accent shadow-[0_0_10px_#00e87d]"></span>
+      <!-- ── TIER 2: Django App + GPS ── -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+        <article class="proj-from-left tilt-wrap proj-card proj-featured">
+          <div class="proj-img-wrap proj-img-tall">
+            <img src="Imagenes/proyectos/To-Do list.jpg" alt="Aplicación To-Do List Django con autenticación" loading="lazy">
+            <div class="proj-overlay">
+              <a href="https://github.com/andressalvarez/Django-Auth-CRUD---ToDoList" target="_blank" rel="noopener noreferrer" class="proj-btn cursor-pointer" aria-label="Código GitHub"><i class="bi bi-github" aria-hidden="true"></i></a>
+              <a href="https://to-do-list-iktn.onrender.com" target="_blank" rel="noopener noreferrer" class="proj-btn cursor-pointer" aria-label="Ver app"><i class="bi bi-box-arrow-up-right" aria-hidden="true"></i></a>
+            </div>
+            <span class="proj-badge">Live ↗</span>
+            <div class="proj-img-glow"></div>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <div class="flex gap-1.5 mb-3"><span class="ptag ptag-amber">Django</span><span class="ptag ptag-amber">Python</span><span class="ptag">Auth</span><span class="ptag">PostgreSQL</span></div>
+            <h3 class="font-display font-bold text-xl text-white mb-2 tracking-tight">To-Do List App</h3>
+            <p class="text-soft/60 text-sm leading-relaxed flex-1 mb-5">App CRUD con autenticación completa (JWT + sessions), persistencia en PostgreSQL y deploy en producción en Render.</p>
+            <div class="flex gap-5">
+              <a href="https://github.com/andressalvarez/Django-Auth-CRUD---ToDoList" target="_blank" rel="noopener noreferrer" class="plink cursor-pointer"><i class="bi bi-github" aria-hidden="true"></i> Código</a>
+              <a href="https://to-do-list-iktn.onrender.com" target="_blank" rel="noopener noreferrer" class="plink text-accent cursor-pointer"><i class="bi bi-laptop" aria-hidden="true"></i> Ver app</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="proj-from-right tilt-wrap proj-card">
+          <div class="proj-img-wrap proj-img-tall">
+            <img src="Imagenes/proyectos/GPS-Tracker.jpg" alt="Sistema de rastreo GPS en tiempo real" loading="lazy">
+            <div class="proj-overlay">
+              <a href="https://drive.google.com/file/d/14lYAMd7lH6zZ5GECyF3JIXFIZG8cDTmZ/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="proj-btn cursor-pointer" aria-label="Ver demo GPS"><i class="bi bi-play-circle-fill" aria-hidden="true"></i></a>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <div class="flex gap-1.5 mb-3"><span class="ptag">PHP</span><span class="ptag">MySQL</span><span class="ptag">Geolocation</span></div>
+            <h3 class="font-display font-bold text-xl text-white mb-2 tracking-tight">GPS Tracker</h3>
+            <p class="text-soft/60 text-sm leading-relaxed flex-1 mb-5">Rastreo de ubicación exacta en tiempo real con PHP y APIs de geolocalización. Mapa interactivo con historial de rutas.</p>
+            <a href="https://drive.google.com/file/d/14lYAMd7lH6zZ5GECyF3JIXFIZG8cDTmZ/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="plink cursor-pointer"><i class="bi bi-play-circle" aria-hidden="true"></i> Demo</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- ── TIER 3: tres menores ── -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
+        <article class="proj-from-left tilt-wrap proj-card">
+          <div class="proj-img-wrap">
+            <img src="Imagenes/proyectos/Software-de-Registro.jpg" alt="Software CRUD de gestión de clientes" loading="lazy">
+            <div class="proj-overlay">
+              <a href="https://drive.google.com/file/d/1JGHYN3aHrGaIGXZ6chxb6witR0nbpeBE/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="proj-btn cursor-pointer" aria-label="Ver demo"><i class="bi bi-play-circle-fill" aria-hidden="true"></i></a>
+            </div>
+          </div>
+          <div class="p-5 flex flex-col flex-1">
+            <div class="flex gap-1.5 mb-2"><span class="ptag">PHP</span><span class="ptag">MySQL</span></div>
+            <h3 class="font-display font-bold text-base text-white mb-1.5 tracking-tight">Gestión de Clientes</h3>
+            <p class="text-soft/55 text-sm leading-relaxed flex-1 mb-3">CRUD de registro con reportes y control de estados.</p>
+            <a href="https://drive.google.com/file/d/1JGHYN3aHrGaIGXZ6chxb6witR0nbpeBE/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="plink cursor-pointer"><i class="bi bi-play-circle" aria-hidden="true"></i> Demo</a>
+          </div>
+        </article>
+        <article class="proj-from-top tilt-wrap proj-card">
+          <div class="proj-img-wrap">
+            <img src="Imagenes/proyectos/Taitas.png" alt="Sitio corporativo Taitas S.A.S" loading="lazy">
+            <div class="proj-overlay">
+              <a href="https://taitascol.com/" target="_blank" rel="noopener noreferrer" class="proj-btn cursor-pointer" aria-label="Ver Taitas"><i class="bi bi-box-arrow-up-right" aria-hidden="true"></i></a>
+            </div>
+            <span class="proj-badge">Live ↗</span>
+          </div>
+          <div class="p-5 flex flex-col flex-1">
+            <div class="flex gap-1.5 mb-2"><span class="ptag">Web</span><span class="ptag">WordPress</span></div>
+            <h3 class="font-display font-bold text-base text-white mb-1.5 tracking-tight">Taitas S.A.S</h3>
+            <p class="text-soft/55 text-sm leading-relaxed flex-1 mb-3">Presencia digital corporativa en producción.</p>
+            <a href="https://taitascol.com/" target="_blank" rel="noopener noreferrer" class="plink text-accent cursor-pointer"><i class="bi bi-laptop" aria-hidden="true"></i> Ver sitio</a>
+          </div>
+        </article>
+        <article class="proj-from-right tilt-wrap proj-card">
+          <div class="proj-img-wrap">
+            <img src="Imagenes/proyectos/crypter.png" alt="Crypter herramienta de cifrado Python" loading="lazy">
+            <div class="proj-overlay">
+              <a href="https://github.com/Hacking-y-Pentest/HackypentCryp-By-Me" target="_blank" rel="noopener noreferrer" class="proj-btn cursor-pointer" aria-label="Ver código Crypter"><i class="bi bi-github" aria-hidden="true"></i></a>
+            </div>
+          </div>
+          <div class="p-5 flex flex-col flex-1">
+            <div class="flex gap-1.5 mb-2"><span class="ptag">Python</span><span class="ptag">Security</span></div>
+            <h3 class="font-display font-bold text-base text-white mb-1.5 tracking-tight">Crypter</h3>
+            <p class="text-soft/55 text-sm leading-relaxed flex-1 mb-3">Herramienta de cifrado y protección. Ciberseguridad práctica.</p>
+            <a href="https://github.com/Hacking-y-Pentest/HackypentCryp-By-Me" target="_blank" rel="noopener noreferrer" class="plink cursor-pointer"><i class="bi bi-github" aria-hidden="true"></i> Código</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="text-center mt-12 gsap-reveal">
+        <a href="https://github.com/andressalvarez" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 px-6 py-3 border border-dborder2 rounded-xl text-sm text-soft hover:border-soft/50 hover:text-white transition-all duration-200 cursor-pointer focus-ring">
+          Ver más en GitHub <i class="bi bi-github" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ EXPERIENCE ══ -->
+  <section id="experiencia" class="py-28 bg-dalt">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="gsap-reveal mb-16">
+        <span class="sec-label">02 — EXPERIENCIA</span>
+        <h2 class="sec-title">Trabajo real,<br>impacto real.</h2>
+      </div>
+
+      <div class="exp-timeline">
+
+        <!-- Rootstack -->
+        <div class="exp-item exp-from-left">
+          <div class="exp-dot-wrap">
+            <div class="exp-dot exp-dot-active"></div>
+          </div>
+          <div class="exp-card is-open">
+            <div class="exp-header">
+              <div>
+                <h3 class="font-display font-bold text-lg text-white tracking-tight">Full Stack Developer Semi-Senior</h3>
+                <span class="font-mono text-sm text-accent">Rootstack</span>
+                <span class="font-mono text-xs text-muted ml-3">· 8 meses</span>
+              </div>
+              <div class="exp-header-right">
+                <span class="exp-badge">Actual</span>
+                <button class="exp-toggle" aria-label="Colapsar" aria-expanded="true">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 4.5L6.5 9L11 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="exp-body">
+              <ul class="exp-bullets">
+                <li>APIs RESTful con Django 5.2 + DRF, autenticación multi-método (JWT, API Keys, Sessions) y permisos RBAC granular.</li>
+                <li>Flujos de IA conversacional con <strong>LangChain y LangGraph</strong> para consultas en lenguaje natural sobre bases de datos.</li>
+                <li>Soporte multi-motor de BD (PostgreSQL, MySQL, SQL Server, Oracle, SAP HANA) mediante SQLAlchemy.</li>
+                <li>Frontend con <strong>Next.js 15, React 19, TypeScript</strong>, componentes Shadcn/ui y Tailwind CSS.</li>
+                <li>Comunicación en tiempo real con <strong>WebSockets (Django Channels)</strong> y tareas asíncronas con Celery + Redis.</li>
+                <li>CI/CD con GitLab CI + SonarQube, contenerización Docker, documentación con Swagger/OpenAPI.</li>
+                <li>Plataforma multi-tenant para agencias de seguros: NestJS 11, TypeORM, Flutter 3.x, Riverpod, Auth0, AWS S3/SES, Twilio.</li>
+              </ul>
+              <div class="exp-tags">
+                <span>Django</span><span>Next.js</span><span>TypeScript</span><span>LangChain</span>
+                <span>WebSockets</span><span>Redis</span><span>Docker</span><span>NestJS</span><span>Flutter</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Text -->
+        <!-- Lasus -->
+        <div class="exp-item exp-from-right">
+          <div class="exp-dot-wrap">
+            <div class="exp-dot"></div>
+          </div>
+          <div class="exp-card">
+            <div class="exp-header">
+              <div>
+                <h3 class="font-display font-bold text-lg text-white tracking-tight">Desarrollador Junior</h3>
+                <span class="font-mono text-sm text-accent">Lasus</span>
+                <span class="font-mono text-xs text-muted ml-3">· 2 años</span>
+              </div>
+              <button class="exp-toggle" aria-label="Expandir" aria-expanded="false">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 4.5L6.5 9L11 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <div class="exp-body">
+              <ul class="exp-bullets">
+                <li>Pipelines de integración y reporting para procesos críticos de negocio.</li>
+                <li>Pop-ups inteligentes de cotización en <strong>PrestaShop</strong> y automatización de catálogos e-commerce con Python y web scraping.</li>
+                <li>Chatbots IA con <strong>OpenAI API + Webhooks</strong> para atención en WhatsApp.</li>
+                <li>Integración de APIs externas (Ingram, Syscom, Nexys) para inventarios en tiempo real.</li>
+                <li>CI/CD con Docker, GitHub Actions y Jenkins. Tests automáticos con PHPUnit y Pytest.</li>
+              </ul>
+              <div class="exp-tags">
+                <span>PrestaShop</span><span>Python</span><span>OpenAI API</span>
+                <span>GitHub Actions</span><span>Jenkins</span><span>PHPUnit</span><span>Pytest</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SiaVip -->
+        <div class="exp-item exp-from-left">
+          <div class="exp-dot-wrap">
+            <div class="exp-dot"></div>
+          </div>
+          <div class="exp-card">
+            <div class="exp-header">
+              <div>
+                <h3 class="font-display font-bold text-lg text-white tracking-tight">Desarrollador Web Multifuncional</h3>
+                <span class="font-mono text-sm text-accent">SiaVip</span>
+                <span class="font-mono text-xs text-muted ml-3">· 1 año 8 meses · Bogotá</span>
+              </div>
+              <button class="exp-toggle" aria-label="Expandir" aria-expanded="false">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 4.5L6.5 9L11 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <div class="exp-body">
+              <ul class="exp-bullets">
+                <li>Mantenimiento de plataforma en <strong>Laravel</strong> y creación de endpoints para apps móviles.</li>
+                <li>Automatización de envío de correos transaccionales con <strong>Brevo</strong>.</li>
+                <li>Implementación de IA en entorno de negocio.</li>
+              </ul>
+              <div class="exp-tags">
+                <span>Laravel</span><span>PHP</span><span>Brevo</span><span>APIs</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frutícola Álvarez -->
+        <div class="exp-item exp-from-right">
+          <div class="exp-dot-wrap">
+            <div class="exp-dot"></div>
+          </div>
+          <div class="exp-card">
+            <div class="exp-header">
+              <div>
+                <h3 class="font-display font-bold text-lg text-white tracking-tight">Desarrollador Web</h3>
+                <span class="font-mono text-sm text-accent">Frutícola Álvarez</span>
+                <span class="font-mono text-xs text-muted ml-3">· 2 años</span>
+              </div>
+              <button class="exp-toggle" aria-label="Expandir" aria-expanded="false">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 4.5L6.5 9L11 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <div class="exp-body">
+              <ul class="exp-bullets">
+                <li>Desarrollo de plataforma web en <strong>Django</strong> para gestión de operaciones.</li>
+                <li>Automatización de procesos internos del negocio.</li>
+              </ul>
+              <div class="exp-tags">
+                <span>Django</span><span>Python</span><span>Automatización</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Universal de Juegos -->
+        <div class="exp-item exp-from-left">
+          <div class="exp-dot-wrap">
+            <div class="exp-dot"></div>
+          </div>
+          <div class="exp-card">
+            <div class="exp-header">
+              <div>
+                <h3 class="font-display font-bold text-lg text-white tracking-tight">Desarrollador Web & Moodle</h3>
+                <span class="font-mono text-sm text-accent">Universal de Juegos y Entretenimientos S.A.S</span>
+                <span class="font-mono text-xs text-muted ml-3">· 6 meses · Ibagué</span>
+              </div>
+              <button class="exp-toggle" aria-label="Expandir" aria-expanded="false">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 4.5L6.5 9L11 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <div class="exp-body">
+              <ul class="exp-bullets">
+                <li>Soporte técnico y comercial con clientes.</li>
+                <li>Metodologías para automatización de procesos.</li>
+              </ul>
+              <div class="exp-tags">
+                <span>Moodle</span><span>Web</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ABOUT ══ -->
+  <section id="sobre-mi" class="py-28 bg-dark">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="gsap-reveal mb-16">
+        <span class="sec-label">03 — SOBRE MÍ</span>
+        <h2 class="sec-title">Quién soy<br>y cómo pienso.</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-16 items-start">
+        <div class="gsap-reveal">
+          <div class="tilt-wrap relative rounded-2xl overflow-hidden border border-dborder2 bg-dcard cursor-default">
+            <img src="Imagenes/Perfil.png" alt="Andrés Felipe Salamanca Alvarez — foto de perfil"
+                 class="w-full object-cover object-top transition-transform duration-500"
+                 style="aspect-ratio:4/5" loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark/60 to-transparent pointer-events-none"></div>
+            <span class="absolute top-3 right-3 w-2 h-2 rounded-full bg-accent shadow-[0_0_10px_oklch(65%_0.18_145)]" aria-hidden="true"></span>
+          </div>
+          <!-- Education card -->
+          <div class="mt-5 rounded-xl border border-dborder bg-dcard p-5">
+            <p class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Educación</p>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <div class="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0"></div>
+                <div>
+                  <p class="text-sm font-medium text-white">Ingeniería de Software</p>
+                  <p class="font-mono text-xs text-muted">Politécnico Grancolombiano · 2022 – Cursando</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-1.5 h-1.5 rounded-full bg-dborder2 mt-2 shrink-0"></div>
+                <div>
+                  <p class="text-sm font-medium text-white">Tecnólogo ADSI</p>
+                  <p class="font-mono text-xs text-muted">SENA · 2020 – 2022</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="gsap-reveal">
           <p class="text-soft/75 leading-[1.85] mb-5">
-            Soy un desarrollador web con enfoque en backend y un ojo siempre puesto en la seguridad. Me apasiona entender cómo funcionan los sistemas a fondo — desde las capas de aplicación hasta los vectores de ataque — porque esa perspectiva dual me hace construir software más sólido.
+            <strong class="text-white font-medium">Full Stack Developer Semi-Senior</strong> con especialización en Django, Laravel y PrestaShop. Mi enfoque principal es el backend, donde diseño arquitecturas robustas y mantenibles, y gestiono catálogos y tiendas en línea a gran escala.
           </p>
           <p class="text-soft/75 leading-[1.85] mb-5">
-            Trabajo con Python y Django en proyectos que van desde herramientas de gestión hasta plataformas multi-tenant. En paralelo, exploro ciberseguridad: administración de servidores, análisis de vulnerabilidades y hardening de aplicaciones.
+            Mi motor es la <strong class="text-white font-medium">métrica</strong>: defino casos de uso, establezco KPIs y mido cada mejora para asegurar impactos tangibles en conversiones y productividad. Trabajo con metodologías ágiles y documento cada paso en Notion para garantizar trazabilidad con los stakeholders.
+          </p>
+          <p class="text-soft/75 leading-[1.85] mb-5">
+            Estoy orientado a la creación de <strong class="text-white font-medium">soluciones data-driven y automatizaciones IA</strong> que transforman procesos de negocio. Si desconozco algo, lo asimilo de inmediato — mi actitud se resume en "reparar y continuar".
           </p>
           <p class="text-soft/75 leading-[1.85]">
-            Actualmente cursando <strong class="text-white font-medium">Ingeniería de Software</strong>, complementado con formación en SENA, Platzi y FreeCodeCamp. Creo en el aprendizaje continuo como ventaja competitiva.
+            Disfruto afinando la experiencia de usuario en el frontend cuando es necesario, sin descuidar la escalabilidad y la seguridad del backend.
           </p>
 
-          <!-- Stats -->
           <div class="flex items-center mt-10 pt-8 pb-8 border-y border-dborder">
             <div class="flex-1 text-center">
-              <span class="block font-display font-extrabold text-4xl text-accent leading-none mb-1.5">3+</span>
-              <span class="font-mono text-[11px] text-muted leading-snug">años<br>construyendo</span>
+              <span class="block font-display font-extrabold text-4xl text-accent leading-none mb-1.5">5+</span>
+              <span class="font-mono text-[11px] text-muted leading-snug">años de<br>experiencia</span>
             </div>
-            <div class="w-px h-10 bg-dborder2"></div>
+            <div class="w-px h-10 bg-dborder2" aria-hidden="true"></div>
+            <div class="flex-1 text-center">
+              <span class="block font-display font-extrabold text-4xl text-accent leading-none mb-1.5">3</span>
+              <span class="font-mono text-[11px] text-muted leading-snug">empresas<br>impactadas</span>
+            </div>
+            <div class="w-px h-10 bg-dborder2" aria-hidden="true"></div>
             <div class="flex-1 text-center">
               <span class="block font-display font-extrabold text-4xl text-accent leading-none mb-1.5">7+</span>
               <span class="font-mono text-[11px] text-muted leading-snug">proyectos<br>entregados</span>
             </div>
-            <div class="w-px h-10 bg-dborder2"></div>
-            <div class="flex-1 text-center">
-              <span class="block font-display font-extrabold text-4xl text-accent leading-none mb-1.5">∞</span>
-              <span class="font-mono text-[11px] text-muted leading-snug">ganas de<br>aprender</span>
-            </div>
           </div>
 
-          <a href="https://www.linkedin.com/in/andressalvarez/" target="_blank" rel="noopener"
-             class="inline-flex items-center gap-2 mt-6 text-sm font-medium text-accent border border-accent/25 rounded-lg px-5 py-2.5 hover:bg-accent/10 transition-all duration-200">
-            Ver LinkedIn <i class="bi bi-linkedin"></i>
+          <a href="https://www.linkedin.com/in/andressalvarez/" target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 mt-6 text-sm font-medium text-accent border border-accent/25 rounded-lg px-5 py-2.5 hover:bg-accent/10 transition-all duration-200 cursor-pointer focus-ring">
+            Ver LinkedIn <i class="bi bi-linkedin" aria-hidden="true"></i>
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══ STACK ══════════════════════════════════════ -->
-  <section id="stack" class="py-24 bg-dark">
+  <!-- ══ STACK ══ -->
+  <section id="stack" class="py-28 bg-dalt">
     <div class="max-w-6xl mx-auto px-6">
-
       <div class="gsap-reveal mb-16">
-        <span class="sec-label">02 — TECH STACK</span>
+        <span class="sec-label">04 — TECH STACK</span>
         <h2 class="sec-title">Las herramientas<br>de mi oficio.</h2>
       </div>
 
-      <div class="space-y-12 gsap-reveal">
+      <div class="space-y-14">
 
-        <div>
-          <p class="font-mono text-xs text-muted mb-5 pb-3 border-b border-dborder">
-            <span class="text-accent mr-1">$</span>languages &amp; frameworks
-          </p>
-          <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
-            <div class="tilt-wrap stack-card">
-              <img src="Imagenes/habilidades/lenguajes tecnologias/python-svgrepo-com.svg" alt="Python" class="sicon">
+        <!-- Backend -->
+        <div class="stack-group">
+        <p class="stack-group-label">Backend · Languages · Frameworks</p>
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-3">
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="Python">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
               <span>Python</span>
             </div>
-            <div class="tilt-wrap stack-card">
-              <img src="Imagenes/habilidades/lenguajes tecnologias/django-icon-svgrepo-com.svg" alt="Django" class="sicon">
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="Django">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
               <span>Django</span>
             </div>
-            <div class="tilt-wrap stack-card">
-              <img src="Imagenes/habilidades/lenguajes tecnologias/javascript-svgrepo-com.svg" alt="JavaScript" class="sicon">
-              <span>JavaScript</span>
-            </div>
-            <div class="tilt-wrap stack-card">
-              <img src="Imagenes/habilidades/lenguajes tecnologias/php2-svgrepo-com.svg" alt="PHP" class="sicon">
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="PHP">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
               <span>PHP</span>
             </div>
-            <div class="tilt-wrap stack-card">
-              <img src="Imagenes/habilidades/lenguajes tecnologias/java-svgrepo-com.svg" alt="Java" class="sicon">
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="JavaScript">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
+              <span>JavaScript</span>
+            </div>
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="Java">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
               <span>Java</span>
             </div>
-            <div class="tilt-wrap stack-card">
-              <img src="Imagenes/habilidades/bases de datos/mysql-svgrepo-com.svg" alt="MySQL" class="sicon">
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="NestJS">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-original.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
+              <span>NestJS</span>
+            </div>
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="Laravel">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
+              <span>Laravel</span>
+            </div>
+        </div>
+        </div>
+
+        <!-- Frontend -->
+        <div class="stack-group">
+        <p class="stack-group-label">Frontend · Full Stack</p>
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="TypeScript">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
+              <span>TypeScript</span>
+            </div>
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="React">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
+              <span>React</span>
+            </div>
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="Next.js">
+              <img src="https://cdn.simpleicons.org/nextdotjs/ffffff" alt="" aria-hidden="true" class="sicon-white" loading="lazy">
+              <span>Next.js</span>
+            </div>
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="Vue.js">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
+              <span>Vue.js</span>
+            </div>
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="Flutter">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
+              <span>Flutter</span>
+            </div>
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="Tailwind CSS">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
+              <span>Tailwind CSS</span>
+            </div>
+        </div>
+        </div>
+
+        <!-- DevOps · Cloud · Data -->
+        <div class="stack-group">
+        <p class="stack-group-label">Data · DevOps · Cloud</p>
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="PostgreSQL">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
+              <span>PostgreSQL</span>
+            </div>
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="MySQL">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
               <span>MySQL</span>
             </div>
-          </div>
-        </div>
-
-        <div>
-          <p class="font-mono text-xs text-muted mb-5 pb-3 border-b border-dborder">
-            <span class="text-accent mr-1">$</span>tools &amp; environment
-          </p>
-          <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
-            <div class="tilt-wrap stack-card">
-              <img src="Imagenes/habilidades/herramientas/git-svgrepo-com.svg" alt="Git" class="sicon">
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="Redis">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
+              <span>Redis</span>
+            </div>
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="Docker">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
+              <span>Docker</span>
+            </div>
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="Git">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
               <span>Git</span>
             </div>
-            <div class="tilt-wrap stack-card">
-              <img src="Imagenes/habilidades/herramientas/github-svgrepo-com.svg" alt="GitHub" class="sicon">
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="GitHub">
+              <img src="https://cdn.simpleicons.org/github/ffffff" alt="" aria-hidden="true" class="sicon-white" loading="lazy">
               <span>GitHub</span>
             </div>
-            <div class="tilt-wrap stack-card">
-              <img src="Imagenes/habilidades/herramientas/visual-studio-code-svgrepo-com.svg" alt="VS Code" class="sicon">
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="GitLab">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
+              <span>GitLab</span>
+            </div>
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="Jenkins">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
+              <span>Jenkins</span>
+            </div>
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="AWS">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
+              <span>AWS</span>
+            </div>
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="DigitalOcean">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/digitalocean/digitalocean-original.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
+              <span>DigitalOcean</span>
+            </div>
+            <div class="tilt-wrap stack-card cursor-default" tabindex="0" aria-label="VS Code">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="" aria-hidden="true" class="sicon-color" loading="lazy">
               <span>VS Code</span>
             </div>
-            <div class="tilt-wrap stack-card">
-              <img src="Imagenes/habilidades/herramientas/powershell-svgrepo-com.svg" alt="PowerShell" class="sicon">
-              <span>PowerShell</span>
-            </div>
-            <div class="tilt-wrap stack-card">
-              <i class="bi bi-shield-lock-fill text-3xl text-dborder2 group-hover:text-accent transition-colors duration-300"></i>
-              <span>Security</span>
-            </div>
-          </div>
+        </div>
         </div>
 
-        <div>
-          <p class="font-mono text-xs text-muted mb-5 pb-3 border-b border-dborder">
-            <span class="text-accent mr-1">$</span>platforms &amp; other
-          </p>
+        <!-- AI · Tools -->
+        <div class="stack-group" id="stack-pills">
+        <p class="stack-group-label">AI · Integrations · Platforms</p>
           <div class="flex flex-wrap gap-2">
-            <span class="stag">WordPress</span>
-            <span class="stag">Moodle</span>
-            <span class="stag">REST APIs</span>
-            <span class="stag">Linux</span>
-            <span class="stag">Bootstrap</span>
-            <span class="stag">HTMX</span>
-            <span class="stag">Docker</span>
-            <span class="stag">PostgreSQL</span>
+          <span class="stag cursor-default">LangChain</span>
+          <span class="stag cursor-default">LangGraph</span>
+          <span class="stag cursor-default">OpenAI API</span>
+          <span class="stag cursor-default">n8n</span>
+          <span class="stag cursor-default">Celery + Redis</span>
+          <span class="stag cursor-default">WebSockets</span>
+          <span class="stag cursor-default">Auth0</span>
+          <span class="stag cursor-default">Twilio</span>
+          <span class="stag cursor-default">Brevo</span>
+          <span class="stag cursor-default">SQLAlchemy</span>
+          <span class="stag cursor-default">PrestaShop</span>
+          <span class="stag cursor-default">New Relic</span>
+          <span class="stag cursor-default">SonarQube</span>
+          <span class="stag cursor-default">Swagger/OpenAPI</span>
+          <span class="stag cursor-default">Postman</span>
+          <span class="stag cursor-default">Pytest</span>
+          <span class="stag cursor-default">PHPUnit</span>
+          <span class="stag cursor-default">Notion</span>
           </div>
         </div>
 
@@ -304,217 +711,47 @@
     </div>
   </section>
 
-  <!-- ══ PROJECTS ══════════════════════════════════ -->
-  <section id="proyectos" class="py-24 bg-dalt">
-    <div class="max-w-6xl mx-auto px-6">
-
-      <div class="gsap-reveal mb-16">
-        <span class="sec-label">03 — PROYECTOS</span>
-        <h2 class="sec-title">Lo que he<br>construido.</h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-
-        <!-- Project 1 -->
-        <article class="gsap-reveal tilt-wrap proj-card">
-          <div class="proj-img-wrap">
-            <img src="Imagenes/proyectos/Software-de-Registro.jpg" alt="Gestión de Clientes" loading="lazy">
-            <div class="proj-overlay">
-              <a href="https://drive.google.com/file/d/1JGHYN3aHrGaIGXZ6chxb6witR0nbpeBE/view?usp=drive_link" target="_blank" rel="noopener" class="proj-btn" title="Ver demo">
-                <i class="bi bi-play-circle-fill"></i>
-              </a>
-            </div>
-          </div>
-          <div class="p-5 flex flex-col flex-1">
-            <div class="flex flex-wrap gap-1.5 mb-3">
-              <span class="ptag">PHP</span><span class="ptag">MySQL</span>
-            </div>
-            <h3 class="font-display font-bold text-lg text-white mb-2 tracking-tight">Gestión de Clientes</h3>
-            <p class="text-soft/60 text-sm leading-relaxed flex-1 mb-4">
-              Software CRUD para registro y gestión de clientes con reportes y control de estados.
-            </p>
-            <a href="https://drive.google.com/file/d/1JGHYN3aHrGaIGXZ6chxb6witR0nbpeBE/view?usp=drive_link" target="_blank" rel="noopener" class="plink">
-              <i class="bi bi-play-circle"></i> Demo
-            </a>
-          </div>
-        </article>
-
-        <!-- Project 2 -->
-        <article class="gsap-reveal tilt-wrap proj-card">
-          <div class="proj-img-wrap">
-            <img src="Imagenes/proyectos/GPS-Tracker.jpg" alt="GPS Tracker" loading="lazy">
-            <div class="proj-overlay">
-              <a href="https://drive.google.com/file/d/14lYAMd7lH6zZ5GECyF3JIXFIZG8cDTmZ/view?usp=drive_link" target="_blank" rel="noopener" class="proj-btn">
-                <i class="bi bi-play-circle-fill"></i>
-              </a>
-            </div>
-          </div>
-          <div class="p-5 flex flex-col flex-1">
-            <div class="flex flex-wrap gap-1.5 mb-3">
-              <span class="ptag">PHP</span><span class="ptag">Geolocation</span>
-            </div>
-            <h3 class="font-display font-bold text-lg text-white mb-2 tracking-tight">GPS Tracker</h3>
-            <p class="text-soft/60 text-sm leading-relaxed flex-1 mb-4">
-              Sistema de rastreo de ubicación exacta en tiempo real construido con PHP.
-            </p>
-            <a href="https://drive.google.com/file/d/14lYAMd7lH6zZ5GECyF3JIXFIZG8cDTmZ/view?usp=drive_link" target="_blank" rel="noopener" class="plink">
-              <i class="bi bi-play-circle"></i> Demo
-            </a>
-          </div>
-        </article>
-
-        <!-- Project 3 — featured -->
-        <article class="gsap-reveal tilt-wrap proj-card proj-featured">
-          <div class="proj-img-wrap">
-            <img src="Imagenes/proyectos/To-Do list.jpg" alt="To-Do List Django" loading="lazy">
-            <div class="proj-overlay">
-              <a href="https://github.com/andressalvarez/Django-Auth-CRUD---ToDoList" target="_blank" rel="noopener" class="proj-btn"><i class="bi bi-github"></i></a>
-              <a href="https://to-do-list-iktn.onrender.com" target="_blank" rel="noopener" class="proj-btn"><i class="bi bi-box-arrow-up-right"></i></a>
-            </div>
-            <span class="proj-badge">Live ↗</span>
-          </div>
-          <div class="p-5 flex flex-col flex-1">
-            <div class="flex flex-wrap gap-1.5 mb-3">
-              <span class="ptag ptag-green">Django</span><span class="ptag ptag-green">Python</span><span class="ptag">Auth</span>
-            </div>
-            <h3 class="font-display font-bold text-lg text-white mb-2 tracking-tight">To-Do List App</h3>
-            <p class="text-soft/60 text-sm leading-relaxed flex-1 mb-4">
-              App CRUD con autenticación completa. Deploy en producción en Render.
-            </p>
-            <div class="flex gap-4">
-              <a href="https://github.com/andressalvarez/Django-Auth-CRUD---ToDoList" target="_blank" rel="noopener" class="plink"><i class="bi bi-github"></i> Código</a>
-              <a href="https://to-do-list-iktn.onrender.com" target="_blank" rel="noopener" class="plink text-accent"><i class="bi bi-laptop"></i> App</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Project 4 -->
-        <article class="gsap-reveal tilt-wrap proj-card">
-          <div class="proj-img-wrap">
-            <img src="Imagenes/proyectos/crypter.png" alt="Crypter" loading="lazy">
-            <div class="proj-overlay">
-              <a href="https://github.com/Hacking-y-Pentest/HackypentCryp-By-Me" target="_blank" rel="noopener" class="proj-btn"><i class="bi bi-github"></i></a>
-            </div>
-          </div>
-          <div class="p-5 flex flex-col flex-1">
-            <div class="flex flex-wrap gap-1.5 mb-3">
-              <span class="ptag">Python</span><span class="ptag">Security</span>
-            </div>
-            <h3 class="font-display font-bold text-lg text-white mb-2 tracking-tight">Crypter</h3>
-            <p class="text-soft/60 text-sm leading-relaxed flex-1 mb-4">
-              Herramienta de cifrado y protección de información. Exploración en ciberseguridad.
-            </p>
-            <a href="https://github.com/Hacking-y-Pentest/HackypentCryp-By-Me" target="_blank" rel="noopener" class="plink"><i class="bi bi-github"></i> Código</a>
-          </div>
-        </article>
-
-        <!-- Project 5 -->
-        <article class="gsap-reveal tilt-wrap proj-card">
-          <div class="proj-img-wrap">
-            <img src="Imagenes/proyectos/SIAVIP.jpg" alt="SIAVIP" loading="lazy">
-            <div class="proj-overlay"></div>
-          </div>
-          <div class="p-5 flex flex-col flex-1">
-            <div class="flex flex-wrap gap-1.5 mb-3">
-              <span class="ptag">E-commerce</span><span class="ptag">Membresías</span>
-            </div>
-            <h3 class="font-display font-bold text-lg text-white mb-2 tracking-tight">SIAVIP</h3>
-            <p class="text-soft/60 text-sm leading-relaxed flex-1">
-              Plataforma de e-commerce para venta de membresías con gestión de contenido por niveles.
-            </p>
-          </div>
-        </article>
-
-        <!-- Project 6 -->
-        <article class="gsap-reveal tilt-wrap proj-card">
-          <div class="proj-img-wrap">
-            <img src="Imagenes/proyectos/Taitas.png" alt="Taitas S.A.S" loading="lazy">
-            <div class="proj-overlay">
-              <a href="https://taitascol.com/" target="_blank" rel="noopener" class="proj-btn"><i class="bi bi-box-arrow-up-right"></i></a>
-            </div>
-            <span class="proj-badge">Live ↗</span>
-          </div>
-          <div class="p-5 flex flex-col flex-1">
-            <div class="flex flex-wrap gap-1.5 mb-3">
-              <span class="ptag">Web</span><span class="ptag">WordPress</span>
-            </div>
-            <h3 class="font-display font-bold text-lg text-white mb-2 tracking-tight">Taitas S.A.S</h3>
-            <p class="text-soft/60 text-sm leading-relaxed flex-1 mb-4">
-              Presencia digital corporativa para empresa colombiana. En producción activa.
-            </p>
-            <a href="https://taitascol.com/" target="_blank" rel="noopener" class="plink text-accent"><i class="bi bi-laptop"></i> Ver sitio</a>
-          </div>
-        </article>
-
-        <!-- Project 7 -->
-        <article class="gsap-reveal tilt-wrap proj-card md:col-span-2 lg:col-span-1">
-          <div class="proj-img-wrap">
-            <img src="Imagenes/proyectos/uje.png" alt="UJE S.A.S" loading="lazy">
-            <div class="proj-overlay">
-              <a href="https://uje.com.co/" target="_blank" rel="noopener" class="proj-btn"><i class="bi bi-box-arrow-up-right"></i></a>
-            </div>
-            <span class="proj-badge">Live ↗</span>
-          </div>
-          <div class="p-5 flex flex-col flex-1">
-            <div class="flex flex-wrap gap-1.5 mb-3">
-              <span class="ptag">Web</span><span class="ptag">CMS</span>
-            </div>
-            <h3 class="font-display font-bold text-lg text-white mb-2 tracking-tight">UJE S.A.S</h3>
-            <p class="text-soft/60 text-sm leading-relaxed flex-1 mb-4">
-              Diseño e implementación de presencia digital. Sitio activo en producción.
-            </p>
-            <a href="https://uje.com.co/" target="_blank" rel="noopener" class="plink text-accent"><i class="bi bi-laptop"></i> Ver sitio</a>
-          </div>
-        </article>
-
-      </div>
-
-      <div class="text-center mt-12 gsap-reveal">
-        <a href="https://github.com/andressalvarez" target="_blank" rel="noopener"
-           class="inline-flex items-center gap-2 px-6 py-3 border border-dborder2 rounded-xl text-sm text-soft hover:border-soft/50 hover:text-white transition-all duration-200">
-          Ver más en GitHub <i class="bi bi-github"></i>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ CONTACT ═══════════════════════════════════ -->
-  <section id="contacto" class="py-24 bg-dark">
+  <!-- ══ CONTACT ══ -->
+  <section id="contacto" class="py-28 bg-dark">
     <div class="max-w-6xl mx-auto px-6 text-center">
-
       <div class="gsap-reveal mb-16">
-        <span class="sec-label">04 — CONTACTO</span>
+        <span class="sec-label">05 — CONTACTO</span>
         <h2 class="sec-title">¿Construimos<br>algo juntos?</h2>
         <p class="text-soft/50 mt-4 max-w-md mx-auto leading-relaxed">
-          Disponible para freelance, colaboraciones o simplemente charlar sobre código y seguridad.
+          Disponible para proyectos freelance, colaboraciones o simplemente charlar sobre código, IA y arquitecturas.
         </p>
       </div>
 
       <div class="gsap-reveal flex flex-col items-center gap-8">
         <a href="mailto:andresalvares82@hotmail.com"
-           class="tilt-wrap contact-email-card group">
+           class="tilt-wrap contact-email-card group cursor-pointer focus-ring rounded-2xl">
           <span class="font-mono text-[11px] text-muted uppercase tracking-widest block mb-2">email directo</span>
-          <span class="font-display font-bold text-white text-xl flex items-center justify-center gap-2 group-hover:text-accent transition-colors duration-200">
-            andresalvares82@hotmail.com <i class="bi bi-arrow-up-right text-base"></i>
+          <span class="font-display font-bold text-white flex items-center justify-center gap-2 group-hover:text-accent transition-colors duration-200" style="font-size:clamp(14px,2.5vw,22px)">
+            andresalvares82@hotmail.com <i class="bi bi-arrow-up-right text-base" aria-hidden="true"></i>
           </span>
         </a>
 
+        <!-- Phone -->
+        <a href="tel:+573202335805"
+           class="font-mono text-sm text-muted hover:text-accent transition-colors cursor-pointer focus-ring rounded px-3 py-1.5">
+          <i class="bi bi-telephone mr-2" aria-hidden="true"></i>+57 320 233 5805
+        </a>
+
         <div class="flex items-center gap-3 flex-wrap justify-center">
-          <a href="https://github.com/andressalvarez" target="_blank" rel="noopener" class="social-btn"><i class="bi bi-github"></i><span>GitHub</span></a>
-          <a href="https://www.linkedin.com/in/andressalvarez/" target="_blank" rel="noopener" class="social-btn"><i class="bi bi-linkedin"></i><span>LinkedIn</span></a>
-          <a href="https://twitter.com/Andres_salvarez" target="_blank" rel="noopener" class="social-btn"><i class="bi bi-twitter-x"></i><span>Twitter</span></a>
-          <a href="https://www.instagram.com/andres_45k/" target="_blank" rel="noopener" class="social-btn"><i class="bi bi-instagram"></i><span>Instagram</span></a>
+          <a href="https://github.com/andressalvarez" target="_blank" rel="noopener noreferrer" class="social-btn cursor-pointer focus-ring" aria-label="GitHub"><i class="bi bi-github" aria-hidden="true"></i><span>GitHub</span></a>
+          <a href="https://www.linkedin.com/in/andressalvarez/" target="_blank" rel="noopener noreferrer" class="social-btn cursor-pointer focus-ring" aria-label="LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i><span>LinkedIn</span></a>
+          <a href="https://twitter.com/Andres_salvarez" target="_blank" rel="noopener noreferrer" class="social-btn cursor-pointer focus-ring" aria-label="Twitter/X"><i class="bi bi-twitter-x" aria-hidden="true"></i><span>Twitter</span></a>
+          <a href="https://www.instagram.com/andres_45k/" target="_blank" rel="noopener noreferrer" class="social-btn cursor-pointer focus-ring" aria-label="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i><span>Instagram</span></a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══ FOOTER ═════════════════════════════════════ -->
-  <footer class="py-6 border-t border-dborder">
+  <footer class="py-6 border-t border-dborder" role="contentinfo">
     <div class="max-w-6xl mx-auto px-6 flex items-center justify-between flex-wrap gap-4">
       <span class="font-mono text-sm text-accent">[AA]</span>
-      <span class="font-mono text-xs text-muted">Construido con código y café · Andrés Álvarez 2025</span>
-      <a href="#hero" class="font-mono text-xs text-muted hover:text-accent transition-colors">↑ Inicio</a>
+      <span class="font-mono text-xs text-muted">Andrés Felipe Salamanca Alvarez · Full Stack Developer · 2025</span>
+      <a href="#hero" class="font-mono text-xs text-muted hover:text-accent transition-colors cursor-pointer focus-ring rounded">↑ Inicio</a>
     </div>
   </footer>
 

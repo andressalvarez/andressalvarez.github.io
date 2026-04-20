@@ -41,11 +41,11 @@ document.querySelectorAll('#mobile-menu a').forEach(a =>
 
 /* ── TYPED ROLE ── */
 const roles = [
-  'Desarrollador de Software',
-  'Backend Engineer',
-  'Entusiasta de Ciberseguridad',
-  'Estudiante Ing. Software',
-  'Builder de Soluciones Web',
+  'Full Stack Developer Semi-Senior',
+  'Backend Engineer · Django & Laravel',
+  'Builder de Soluciones con IA',
+  'Ing. Software en Formación',
+  'Arquitecto de Flujos Automatizados',
 ];
 const typed = document.getElementById('typed-role');
 let ri = 0, ci = 0, del = false;
@@ -90,11 +90,11 @@ setTimeout(typeRole, 1400);
   const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
 
-  const pMat = new THREE.PointsMaterial({ color: 0x00e87d, size: 2.2, transparent: true, opacity: .65, sizeAttenuation: true });
+  const pMat = new THREE.PointsMaterial({ color: 0xe8a030, size: 2.2, transparent: true, opacity: .55, sizeAttenuation: true });
   const points = new THREE.Points(geo, pMat);
   scene.add(points);
 
-  const lMat = new THREE.LineBasicMaterial({ color: 0x00e87d, transparent: true, opacity: .07 });
+  const lMat = new THREE.LineBasicMaterial({ color: 0xe8a030, transparent: true, opacity: .06 });
   let lines = null;
   const MAXDIST = 110;
 
@@ -201,6 +201,54 @@ document.querySelectorAll('.tilt-wrap').forEach(card => {
   });
 });
 
+/* ── PROJECT CARDS — diagonal directional reveal, se revierte al subir ── */
+(function initProjAnims() {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function animProj(sel, fromX, fromY, rot) {
+    document.querySelectorAll(sel).forEach(el => {
+      if (reduced) return; // accesibilidad: sin animación si el usuario lo prefiere
+
+      // estado inicial: oculto y desplazado diagonalmente
+      gsap.set(el, { x: fromX, y: fromY, rotation: rot, opacity: 0 });
+
+      gsap.to(el, {
+        x: 0, y: 0, rotation: 0, opacity: 1,
+        duration: 0.72,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 88%',
+          // play al bajar, reverse al volver a subir
+          toggleActions: 'play none none reverse',
+        },
+      });
+    });
+  }
+
+  animProj('.proj-from-left',  -88, -44,  2);
+  animProj('.proj-from-right',  88, -44, -2);
+  animProj('.proj-from-top',    0,  -60,  0);
+})();
+
+/* ── EXPERIENCE TIMELINE — slide from left / right ── */
+document.querySelectorAll('.exp-from-left, .exp-from-right').forEach(el => {
+  const fromX = el.classList.contains('exp-from-left') ? -72 : 72;
+  gsap.fromTo(el,
+    { x: fromX, opacity: 0 },
+    {
+      x: 0, opacity: 1,
+      duration: 0.78,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 88%',
+        once: true,
+      }
+    }
+  );
+});
+
 /* ── MAGNETIC BUTTONS ── */
 document.querySelectorAll('.magnetic').forEach(btn => {
   btn.addEventListener('mousemove', e => {
@@ -213,3 +261,55 @@ document.querySelectorAll('.magnetic').forEach(btn => {
     btn.style.transform = '';
   });
 });
+
+/* ── EXPERIENCE ACCORDION ── */
+document.querySelectorAll('.exp-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const isOpen = card.classList.toggle('is-open');
+    const btn = card.querySelector('.exp-toggle');
+    if (btn) {
+      btn.setAttribute('aria-expanded', String(isOpen));
+      btn.setAttribute('aria-label', isOpen ? 'Colapsar' : 'Expandir');
+    }
+  });
+});
+
+/* ── STACK — stagger per group ── */
+(function() {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  document.querySelectorAll('.stack-group').forEach(function(group) {
+    var cards = group.querySelectorAll('.stack-card');
+    if (!cards.length) return;
+    gsap.from(cards, {
+      y: 22,
+      opacity: 0,
+      duration: 0.45,
+      ease: 'power3.out',
+      stagger: { each: 0.055 },
+      scrollTrigger: {
+        trigger: group,
+        start: 'top 88%',
+        once: true,
+      }
+    });
+  });
+  /* pill tags fade-up as a batch */
+  var pillGroup = document.getElementById('stack-pills');
+  if (pillGroup) {
+    var pills = pillGroup.querySelectorAll('.stag');
+    if (pills.length) {
+      gsap.from(pills, {
+        y: 14,
+        opacity: 0,
+        duration: 0.4,
+        ease: 'power2.out',
+        stagger: { each: 0.03 },
+        scrollTrigger: {
+          trigger: pillGroup,
+          start: 'top 88%',
+          once: true,
+        }
+      });
+    }
+  }
+})();
