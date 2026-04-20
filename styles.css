@@ -859,3 +859,13 @@ body.hovering #cring { width: 52px; height: 52px; border-color: oklch(72% 0.14 6
   border-color: oklch(72% 0.14 65 / 0.5);
   color: var(--accent);
 }
+
+/* AWS inline SVG icon */
+.sicon-aws {
+  transition: opacity .3s ease;
+  opacity: 0.5;
+}
+.stack-card:hover .sicon-aws,
+.stack-card:focus-visible .sicon-aws {
+  opacity: 1;
+}
